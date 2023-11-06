@@ -1,0 +1,46 @@
+#main-nav {
+    padding: 1rem 0;
+
+    .navbar-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    ul.navbar-nav {
+        flex-direction: row;
+
+        li {
+            margin-left: 2rem;
+
+            a {
+                background: linear-gradient(to right, transparent, transparent),
+                    linear-gradient(to right, #333, #d00, #ffce00);
+                background-size: 100% 3px, 0 3px;
+                background-position: 100% 100%, 0 100%;
+                background-repeat: no-repeat;
+                transition: background-size 200ms;
+
+                &:hover {
+                    background-size: 0 3px, 100% 3px;
+                }
+            }
+        }
+    }
+}
+
+
+
+@media(max-width: 950px) {
+    #main-nav {
+        ul.navbar-nav {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+
+            li {
+                display: block;
+            }
+        }
+    }
+}

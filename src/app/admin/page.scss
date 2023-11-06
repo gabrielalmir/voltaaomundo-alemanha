@@ -1,0 +1,65 @@
+#admin {
+  background-color: #111;
+  background: linear-gradient(45deg, #111, #223) fixed;
+  color: #fff;
+  min-height: 100vh;
+
+  #main-header {
+    nav {
+      background-color: #112;
+    }
+  }
+
+  main {
+    padding-top: 2rem;
+  }
+
+  .message-block {
+    margin-top: 2rem;
+    border: 1px solid #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #ccc;
+      }
+
+      span {
+        font-size: 0.75rem;
+        color: #999;
+      }
+    }
+
+    .message-content {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+
+    .message-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+
+      button {
+        margin-left: 1rem;
+        background: linear-gradient(45deg, #d00, #d55);
+        border-radius: 0.5rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,28 @@
+#wrapper-header {
+    width: 100%;
+}
+
+#navbarSupportedContent {
+    background-color: #333;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    margin: 0;
+    width: 100vw;
+
+    li {
+        width: 100%;
+        text-align: center;
+        list-style-type: none;
+        padding: 0.5rem 0;
+        font-size: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .collapsing {
+        transition-property: height, visibility;
+        transition-duration: .35s;
+    }
+}

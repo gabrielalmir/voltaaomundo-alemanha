@@ -1,0 +1,16 @@
+.bg-banner {
+  background-image: url('../../assets/img/bg-hist.png');
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+
+  div {
+    height: 100%;
+
+    h1 {
+      color: white;
+      font-weight: bold;
+      text-shadow: 0 0 3px #333;
+    }
+  }
+}
