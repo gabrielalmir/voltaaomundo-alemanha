@@ -1,7 +1,7 @@
 import { PrismaService } from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextResponse) {
+export async function GET(request: NextRequest) {
   const cookies = request.cookies;
 
   if (!cookies.has("user")) {
@@ -18,7 +18,7 @@ export async function GET(request: NextResponse) {
   return NextResponse.json({ messages });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const prisma = new PrismaService();
 
   const { name, email, message } = await request.json();
