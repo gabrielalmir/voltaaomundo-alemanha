@@ -16,8 +16,8 @@ export default function MessageBlock({ message }: { message: ContactMessage }) {
     );
 
     if (response.status === 200) {
-      alert("Mensagem apagada com sucesso!");
-      return window.location.href = window.location.href;
+      return alert("Mensagem apagada com sucesso!");
+      // return window.location.href = window.location.href;
     }
 
     return alert("Falha ao apagar mensagem");

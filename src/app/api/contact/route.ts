@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const prisma = PrismaService.GetInstance();
 
 export async function GET(request: NextRequest) {
-  if (request.headers.get("token") !== process.env.API_KEY) {
+  if (!request.cookies.has('user')) {
     return NextResponse.redirect("/login");
   }
 

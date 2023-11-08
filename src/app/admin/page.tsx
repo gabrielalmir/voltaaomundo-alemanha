@@ -4,19 +4,16 @@ import MainHeader from "@/components/MainHeader"
 import { ContactMessage } from "@prisma/client"
 
 import MessageBlock from "@/components/MessageBlock"
-import { api } from "@/services/axios"
+
 import { useEffect, useState } from "react"
 
+import "./page.scss"
+
 async function getMessages() {
-  const response = await api.get('contact');
+  const response = await fetch('/api/contact');
+  const data = await response.json();
 
-  if (response.status !== 200) {
-    throw new Error('Failed to fetch data');    
-  }
-  
-  const messages: ContactMessage[] = response.data.messages || [];
-
-  return messages;
+  return data.messages;
 }
 
 export default function Admin() {
@@ -26,7 +23,7 @@ export default function Admin() {
     getMessages().then((messages) => {
       setMessages(messages);
     })
-  })
+  }, [messages])
 
   return (
     <div id="admin">
