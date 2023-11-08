@@ -11,13 +11,15 @@ export default function FaleConosco() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(true)
+  const [alertSuccess, setAlertSuccess] = useState(false)
+  const [alertError, setAlertError] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     setBtnDisabled(true)
 
-    if (!name || !email || !message) return alert('Preencha todos os campos')
+    if (!name || !email || !message) return setAlertError(true)
 
     const response = await fetch('/api/contact', {
       method: 'POST',
@@ -25,10 +27,16 @@ export default function FaleConosco() {
     })
 
     if (response.status === 201) {
-      alert('Mensagem enviada com sucesso!')
+      setAlertError(false);
+      setAlertSuccess(true);
+
       setName('')
       setEmail('')
       setMessage('')
+
+      setTimeout(() => {
+        setAlertSuccess(false);
+      }, 5000)
     }
 
     setBtnDisabled(false)
@@ -50,8 +58,13 @@ export default function FaleConosco() {
               <label htmlFor="nome" className="form-label">
                 Nome
               </label>
-              <input type="text" className="form-control" id="nome" placeholder="Digite seu nome"
-                onChange={event => setName(event.target.value)} value={name}
+              <input
+                type="text"
+                className="form-control"
+                id="nome"
+                placeholder="Digite seu nome"
+                onChange={(event) => setName(event.target.value)}
+                value={name}
                 required
               />
             </div>
@@ -59,34 +72,87 @@ export default function FaleConosco() {
               <label htmlFor="email" className="form-label">
                 E-mail
               </label>
-              <input type="email" className="form-control" id="email" placeholder="Digite seu e-mail"
-                onChange={event => setEmail(event.target.value)} value={email}
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Digite seu e-mail"
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
                 required
               />
             </div>
           </div>
           <div className="row mt-5">
             <div className="col-12">
-              <label htmlFor="mensagem" className="form-label">Mensagem</label>
-              <textarea className="form-control" id="mensagem" rows={5} placeholder="Nos diga o que você está pensando"
-                onChange={event => setMessage(event.target.value)} value={message}
+              <label htmlFor="mensagem" className="form-label">
+                Mensagem
+              </label>
+              <textarea
+                className="form-control"
+                id="mensagem"
+                rows={5}
+                placeholder="Nos diga o que você está pensando"
+                onChange={(event) => setMessage(event.target.value)}
+                value={message}
                 required
               ></textarea>
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary mt-5" disabled={
-            !btnDisabled || !message || !name || !email ?
-            true : false
-          }>
+          <button
+            type="submit"
+            className="btn btn-primary mt-5"
+            id="btn-submit"
+            disabled={
+              !btnDisabled || !message || !name || !email ? true : false
+            }
+          >
             Enviar
           </button>
+
+          <div
+            className="mt-4 alert alert-success alert-dismissible"
+            role="alert"
+            style={{ display: alertSuccess ? "block" : "none" }}
+          >
+            <div>
+              <strong>Mensagem enviada com sucesso!</strong>
+            </div>
+
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div className="mt-4 alert alert-danger alert-dismissible"
+            role="alert"
+            style={{ display: alertError ? "block" : "none" }}
+          >
+            <div>
+              <strong>Erro ao enviar mensagem!</strong>
+            </div>
+
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
         </form>
       </main>
 
       <footer className="text-center">
-        <p className="container">© Copyright <a href="https://github.com/gabrielalmir">Gabriel Almir</a> | Todos os direitos reservados</p>
+        <p className="container">
+          © Copyright{" "}
+          <a href="https://github.com/gabrielalmir">Gabriel Almir</a> | Todos os
+          direitos reservados
+        </p>
       </footer>
     </>
-  )
+  );
 }
