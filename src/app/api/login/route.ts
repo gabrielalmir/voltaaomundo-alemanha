@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 
 import crypto from "crypto";
 
+const prisma = PrismaService.GetInstance();
+
 export async function POST(request: Request) {
   const { email, password } = await request.json();
 
   if (!email || !password) {
     return NextResponse.json({ id: null, email: null, error: "Missing email or password" }, { status: 400 });
   }
-
-  const prisma = new PrismaService();
 
   const API_KEY = process.env.API_KEY;
   const encryptedPassword = crypto.createHash("sha256").update(password + API_KEY).digest("hex");

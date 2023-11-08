@@ -1,14 +1,13 @@
 import { PrismaService } from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const cookies = request.cookies;
+const prisma = PrismaService.GetInstance();
 
-  if (!cookies.has("user")) {
-    return NextResponse.redirect(new URL("/login", request.url));
+export async function GET(request: NextRequest) {
+  if (request.headers.get("token") !== process.env.API_KEY) {
+    return NextResponse.redirect("/login");
   }
 
-  const prisma = new PrismaService();
   const messages = await prisma.contactMessage.findMany({
     where: {
       active: true,
@@ -19,8 +18,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const prisma = new PrismaService();
-
   const { name, email, message } = await request.json();
 
   if (!name || !email || !message) {
@@ -39,13 +36,9 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const cookies = request.cookies;
-
-  if (!cookies.has("user")) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (!request.cookies.has('user')) {
+    return NextResponse.redirect("/login");
   }
-
-  const prisma = new PrismaService();
 
   const { id, active } = await request.json();
 
