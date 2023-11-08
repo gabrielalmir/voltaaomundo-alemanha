@@ -5,13 +5,18 @@ import { useRouter } from "next/navigation";
 
 import logo from '@/assets/img/logo.svg';
 import { useLogin } from "@/hooks/use-login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './page.scss';
+
+import nookies from 'nookies';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true)
+
+  const cookies = nookies.get(null)
+  const user = cookies['user']
 
   const router = useRouter()
   const copyrightFirstYear = 2023;
@@ -28,6 +33,13 @@ export default function Login() {
 
     router.push('/admin');
   }
+
+  useEffect(() => {
+    if (user) {
+      router.push('/admin');
+    }
+  }, [user, router]);
+
 
   return (
     <div id="login">

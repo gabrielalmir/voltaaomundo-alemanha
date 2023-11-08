@@ -17,7 +17,7 @@ export default function MainNavbar(
   const [isLogged, setIsLogged] = useState(false)
   const router = useRouter()
 
-  const { logout } = useLogout()
+  const { logout } = useLogout();
 
   useEffect(() => {
     const cookies = nookies.get(null)
@@ -28,17 +28,16 @@ export default function MainNavbar(
     }
   }, [])
 
-  async function handleLogout() {
-    await logout()
-    setIsLogged(false)
-    router.push('/')
-  }
-
   return (
     <nav className={navbarClassName} id="main-nav">
       <div className="container">
         <Link href="/" className="navbar-brand">
-          <Image src={logo} id="logo" alt="Bandeira da Alemanha" className="d-inline-block align-text-top" />
+          <Image
+            src={logo}
+            id="logo"
+            alt="Bandeira da Alemanha"
+            className="d-inline-block align-text-top"
+          />
           <span className="fw-bold">Volta ao Mundo</span>
         </Link>
 
@@ -77,10 +76,20 @@ export default function MainNavbar(
               </Link>
             </li>
 
-            {isLogged && (
+            {isLogged ? (
               <li className="nav-item">
-                <Link href="/logout" className="nav-link" onClick={handleLogout}>
+                <button
+
+                  className="nav-link"
+                  onClick={() => logout().then(() => router.push('/'))}
+                >
                   Log out
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link href="/login" className="nav-link">
+                  Log in
                 </Link>
               </li>
             )}
@@ -88,5 +97,5 @@ export default function MainNavbar(
         </div>
       </div>
     </nav>
-  )
+  );
 }

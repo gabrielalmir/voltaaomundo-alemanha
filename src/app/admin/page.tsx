@@ -18,11 +18,15 @@ async function getMessages() {
 
 export default function Admin() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
-  
+
   useEffect(() => {
-    getMessages().then((messages) => {
-      setMessages(messages);
-    })
+    const interval = setInterval(() => {
+      getMessages().then((messages) => {
+        setMessages(messages);
+      })
+    }, 10000)
+
+    return () => clearInterval(interval)
   }, [messages])
 
   return (
