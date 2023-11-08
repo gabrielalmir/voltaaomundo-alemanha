@@ -11,6 +11,7 @@ import './page.scss';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true)
 
   const router = useRouter()
   const copyrightFirstYear = 2023;
@@ -46,7 +47,9 @@ export default function Login() {
             />
             <label htmlFor="floatingPassword">Senha</label>
           </div>
-          <button className="w-100 btn btn-lg btn-danger" type="submit">Entrar</button>
+          <button className="w-100 btn btn-lg btn-danger" type="submit"
+            disabled={!disabled || !email || !password ? true : false}
+          >Entrar</button>
           <p className="mt-5 mb-3 text-muted">
             &copy; Volta ao Mundo, Alemanha - {' '}
             { new Date().getFullYear() === copyrightFirstYear ? copyrightFirstYear : `${copyrightFirstYear} - ${new Date().getFullYear()}`}
