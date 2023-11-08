@@ -10,9 +10,12 @@ export default function FaleConosco() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [btnDisabled, setBtnDisabled] = useState(true)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    setBtnDisabled(true)
 
     if (!name || !email || !message) return alert('Preencha todos os campos')
 
@@ -27,6 +30,8 @@ export default function FaleConosco() {
       setEmail('')
       setMessage('')
     }
+
+    setBtnDisabled(false)
   }
 
   return (
@@ -70,7 +75,10 @@ export default function FaleConosco() {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary mt-5">
+          <button type="submit" className="btn btn-primary mt-5" disabled={
+            !btnDisabled || !message || !name || !email ?
+            true : false
+          }>
             Enviar
           </button>
         </form>
