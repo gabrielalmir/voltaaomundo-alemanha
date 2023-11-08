@@ -4,22 +4,17 @@ import MainHeader from "@/components/MainHeader"
 import { ContactMessage } from "@prisma/client"
 
 import MessageBlock from "@/components/MessageBlock"
-import { BASE_URL } from "@/services/axios"
-import './page.scss'
+import { api } from "@/services/axios"
 import { useEffect, useState } from "react"
 
 async function getMessages() {
-  const response = await fetch(`${BASE_URL}/api/contact`, {
-    headers: {
-      token: process.env.API_KEY || ''
-    }
-  });
+  const response = await api.get('contact');
 
-  if (!response.ok) {
+  if (response.status !== 200) {
     throw new Error('Failed to fetch data');    
   }
   
-  const messages: ContactMessage[] = await response.json() || [];
+  const messages: ContactMessage[] = response.data.messages || [];
 
   return messages;
 }
