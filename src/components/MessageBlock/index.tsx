@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from 'react';
+
 import { api } from "@/services/axios";
 import { ContactMessage } from "@prisma/client";
 
 export default function MessageBlock({ message }: { message: ContactMessage }) {
+  const [disabled, setDisabled] = useState(false);
+
   async function handler(id: string) {
+    setDisabled(true)
     const response = await api.put(
       "contact",
       { id, active: false },
@@ -34,12 +39,16 @@ export default function MessageBlock({ message }: { message: ContactMessage }) {
             </div>
           </div>
           <div className="message-actions">
-            <button
-              className="btn btn-sm btn-danger"
-              onClick={() => handler(message.id)}
-            >
-              Apagar
-            </button>
+            {disabled ? (
+              <button className="btn btn-sm btn-warning" disabled={true}>Processando</button>
+            ) : (
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handler(message.id)}
+              >
+                Apagar
+              </button>
+            )}
           </div>
         </div>
       </div>
