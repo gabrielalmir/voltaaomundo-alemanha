@@ -11,13 +11,16 @@ export default function MainHeader({ className, navbarClassName }: MainHeaderPro
         <>
             <ul id="navbarSupportedContent" className="collapse collapsing">
                 <li className="nav-item">
-                    <a href="{base}/" className="nav-link">Início</a>
+                    <a href="/" className="nav-link">Início</a>
                 </li>
                 <li className="nav-item">
-                    <a href="{base}/historia" className="nav-link">História</a>
+                    <a href="/historia" className="nav-link">História</a>
                 </li>
                 <li className="nav-item">
-                    <a href="{base}/culinaria" className="nav-link">Culinária</a>
+                    <a href="/culinaria" className="nav-link">Culinária</a>
+                </li>
+                <li className="nav-item">
+                    <a href="/fale-conosco" className="nav-link">Fale Conosco</a>
                 </li>
             </ul>
 
