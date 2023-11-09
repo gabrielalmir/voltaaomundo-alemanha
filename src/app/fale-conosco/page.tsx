@@ -105,9 +105,7 @@ export default function FaleConosco() {
             type="submit"
             className="btn btn-primary mt-5"
             id="btn-submit"
-            disabled={
-              btnDisabled ? true : false
-            }
+            disabled={btnDisabled}
           >
             Enviar
           </button>
