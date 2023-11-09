@@ -2,7 +2,7 @@
 import BgBanner from "@/components/BgBanner"
 import MainHeader from "@/components/MainHeader"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import './page.scss'
 
@@ -12,14 +12,11 @@ export default function FaleConosco() {
   const [message, setMessage] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [alertSuccess, setAlertSuccess] = useState(false)
-  const [alertError, setAlertError] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     setBtnDisabled(true)
-
-    if (!name || !email || !message) return setAlertError(true)
 
     const response = await fetch('/api/contact', {
       method: 'POST',
@@ -27,7 +24,6 @@ export default function FaleConosco() {
     })
 
     if (response.status === 201) {
-      setAlertError(false);
       setAlertSuccess(true);
 
       setName('')
@@ -41,6 +37,11 @@ export default function FaleConosco() {
 
     setBtnDisabled(false)
   }
+
+  useEffect(() => {
+    if (!name || !email || !message) setBtnDisabled(true);
+    else setBtnDisabled(false);
+  }, [name, email, message])
 
   return (
     <>
@@ -105,7 +106,7 @@ export default function FaleConosco() {
             className="btn btn-primary mt-5"
             id="btn-submit"
             disabled={
-              !btnDisabled || !message || !name || !email ? true : false
+              !btnDisabled ? true : false
             }
           >
             Enviar
@@ -118,22 +119,6 @@ export default function FaleConosco() {
           >
             <div>
               <strong>Mensagem enviada com sucesso!</strong>
-            </div>
-
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div className="mt-4 alert alert-danger alert-dismissible"
-            role="alert"
-            style={{ display: alertError ? "block" : "none" }}
-          >
-            <div>
-              <strong>Erro ao enviar mensagem!</strong>
             </div>
 
             <button
