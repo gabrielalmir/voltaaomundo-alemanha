@@ -12,10 +12,12 @@ export default function FaleConosco() {
   const [message, setMessage] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [alertSuccess, setAlertSuccess] = useState(false)
+  const [processing, setProcessing] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    setProcessing(true)
     setBtnDisabled(true)
 
     const response = await fetch('/api/contact', {
@@ -36,6 +38,7 @@ export default function FaleConosco() {
     }
 
     setBtnDisabled(false)
+    setProcessing(false)
   }
 
   useEffect(() => {
@@ -101,14 +104,25 @@ export default function FaleConosco() {
             </div>
           </div>
 
+          {processing ? (
+          <button
+            type="submit"
+            className="btn btn-warning mt-5"
+            id="btn-submit"
+            disabled={btnDisabled}
+          >
+            Enviando mensagem...
+          </button>
+          ) : (
           <button
             type="submit"
             className="btn btn-primary mt-5"
             id="btn-submit"
             disabled={btnDisabled}
           >
-            Enviar
+            Enviar mensagem
           </button>
+          )}
 
           <div
             className="mt-4 alert alert-success alert-dismissible"
