@@ -111,7 +111,7 @@ export default function FaleConosco() {
             id="btn-submit"
             disabled={btnDisabled}
           >
-            Enviando mensagem...
+            Enviando ...
           </button>
           ) : (
           <button
@@ -120,7 +120,7 @@ export default function FaleConosco() {
             id="btn-submit"
             disabled={btnDisabled}
           >
-            Enviar mensagem
+            Enviar
           </button>
           )}
 
